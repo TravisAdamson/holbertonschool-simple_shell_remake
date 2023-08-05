@@ -11,14 +11,14 @@ int check_turtle(char *f_name, char *dir_name)
 {
 	char *path_name; 
 	struct stat stat_buf;
-	int stat_result;
+	int stat_result, length;
 	char *temp_dir;
 	char *temp_f;
 
 	temp_f = strdup(f_name);
 	if (dir_name == NULL)
 	{
-		stat_result = stat(f_name, &stat_buf);
+		stat_result = stat(temp_f, &stat_buf);
 		printf("stat_result = %d\n", stat_result);
 		if (stat_result == 0)
 		{
@@ -42,8 +42,11 @@ int check_turtle(char *f_name, char *dir_name)
 	strcpy(path_name, dir_name);
 	strcat(path_name, "/");
 	strcat(path_name, f_name);
+	length = strlen(path_name);
+	path_name[length] = '\0';
+	printf("path_name[%d] = %c\n", length, path_name[length]);
 	stat_result = stat(path_name, &stat_buf);
-	printf("stat_result = %d\n", stat_result);
+	printf("stat_result = %d\nerrno = %d\n", stat_result, errno);
 	if (stat_result != 0)
 	{
 		free(path_name);

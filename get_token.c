@@ -10,7 +10,7 @@
 int get_token(char *user_input, char **argv)
 {
 	char *temp_token, *temp_input, *save_ptr;
-	int count, index;
+	int count, index, length;
 
 	index = 1;
 	temp_input = strdup(user_input);
@@ -25,12 +25,15 @@ int get_token(char *user_input, char **argv)
 		count++;
 	}
 	argv[index] = NULL;
-	argv[index] = strtok_r(user_input, " ", &save_ptr);
+	argv[index] = strtok(user_input, " ");
+	length = strlen(argv[index]);
+	argv[index][length] = '\0';
+	printf("argv[%d][%d] = %c", index, length, argv[index][length]);
 	index++;
 	while (index < count)
 	{
 		argv[index] = NULL;
-		argv[index] = strtok_r(NULL, " ", &save_ptr);
+		argv[index] = strtok(NULL, " ");
 		index++;
 	}
 	argv[index] = NULL;
