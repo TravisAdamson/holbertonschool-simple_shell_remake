@@ -19,6 +19,7 @@ extern char **environ;
 char *path_name;
 char **in_array;
 int st;
+char *dir_name;
 int print_env(char **environ);
 int get_token(char *user_input, char **argv);
 int check_run(char **argv, char **paths);

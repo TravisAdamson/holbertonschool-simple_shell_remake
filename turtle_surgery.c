@@ -21,6 +21,8 @@ int turtle_surgery(char *input, char **in_array)
 		{
 			if (input)
 				free(input);
+			if (in_array)
+				free(in_array);
 			exit(st);
 		}
 		st = 2;

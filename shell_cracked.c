@@ -11,8 +11,12 @@
 char *shell_cracked(char **input, char *delim)
 {
 	char *cmdT = NULL;
+	int length = 0;
 
 	while ((cmdT = strsep(input, delim)) && !*cmdT)
-		;
+	{
+		length = strlen(cmdT);
+		cmdT[length] = '\0';
+	}
 	return (cmdT);
 }

@@ -9,14 +9,17 @@
 void turtle_cross_road_or_not(char **in_array, char *dir_name)
 {
 	pid_t launch = 0;
-	int status = 0, length = 0;
+	int status = 0, length = 0, length1 = 0;
 	char *full_path;
 	char **envp = NULL;
 	char *d_name = "\0";
 
 	if (dir_name != NULL)
 		d_name = dir_name;
-	full_path = malloc(strlen(d_name) + strlen(in_array[0]) + 2);
+	printf("d_name = %s\n", d_name);
+	length = strlen(d_name);
+	length1 = strlen(in_array[0]);
+	full_path = malloc(length + length1 + 2);
 	full_path[0] = '\0';
 	strcat(full_path, d_name);
 	strcat(full_path, "/");
