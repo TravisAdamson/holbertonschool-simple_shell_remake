@@ -21,9 +21,13 @@ int turtle_surgery(char *input, char **in_array)
 		{
 			if (input)
 				free(input);
-			free(in_array[0]);
 			free(in_array);
 			exit(st);
+		}
+		if (strncmp("env", in_array[0], 3) == 0)
+		{
+			turtle_pen(environ);
+			return (150);
 		}
 		st = 2;
 	}

@@ -44,7 +44,7 @@ int main(void)
 		}
 		in_array = malloc(sizeof(char *) * 10);
 		count = turtle_surgery(user_input, in_array);
-		if (count == 0)
+		if ((count == 0) || (count == 150))
 		{
 			continue;
 		}
