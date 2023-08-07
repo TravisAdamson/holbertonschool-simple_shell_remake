@@ -16,8 +16,9 @@
 #define prompt "Shellshocked $"
 
 extern char **environ;
+char *path_name;
+char **in_array;
 int st;
-int main(int argc, char **argv);
 int print_env(char **environ);
 int get_token(char *user_input, char **argv);
 int check_run(char **argv, char **paths);
@@ -25,4 +26,9 @@ char *turtle_path(char **environ);
 int check_turtle(char *f_name, char *dir_name);
 char *turtle_or_not(char *path, char *f_name);
 void turtle_cross_road_or_not(char **argv, char *dir_name);
+char *turtle_bath(int length, char *path_name);
+int turtle_surgery(char *input, char **in_array);
+char *shell_cracked(char **input, char *delim);
+void set_turtle_free_or_not(char **cmdS);
+
 #endif

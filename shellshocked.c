@@ -7,17 +7,17 @@
  *
  * Return: 0 on success
  */
-int main(int argc, char *argv[])
+int main(void)
 {
 	int num_char;
 	size_t bsize;
 	char *user_input;
 	char *path;
 	char *dir_name = NULL;
-	int st = 0;
+	int st = 0, count = 0;
+	char **in_array = NULL;
 
 	bsize = 1024;
-	argc = 0;
 	path = NULL;
 	user_input = malloc(bsize);
 	if (user_input == NULL)
@@ -28,6 +28,9 @@ int main(int argc, char *argv[])
 	path = turtle_path(environ);
 	while (1)
 	{
+		if (user_input)
+			free(user_input);
+		user_input = malloc(bsize);
 		printf("%s", prompt);
 		num_char = getline(&user_input, &bsize, stdin);
 		if (num_char  == -1)
@@ -36,14 +39,22 @@ int main(int argc, char *argv[])
 			free(user_input);
 			exit(st);
 		}
-		argc = get_token(user_input, argv);
-		if (argc == 0)
+		in_array = malloc(sizeof(char *) * 10);
+		count = turtle_surgery(user_input, in_array);
+		if (count == 0)
+		{
 			printf("You didn't enter any commands");
-		dir_name = turtle_or_not(path, argv[1]);
+			continue;
+		}
+		dir_name = turtle_or_not(path, in_array[0]);
 		printf("dir_name = %s\n", dir_name);
-		turtle_cross_road_or_not(argv, dir_name);
+		if (dir_name != NULL)
+			turtle_cross_road_or_not(in_array, dir_name);
 		st = 2;
+		free(in_array);
 	}
-	free(user_input);
+	if (user_input)
+		free(user_input);
+	free(path_name);
 	return (0);
 }

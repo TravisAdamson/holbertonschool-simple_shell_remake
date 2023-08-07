@@ -43,10 +43,8 @@ int check_turtle(char *f_name, char *dir_name)
 	strcat(path_name, "/");
 	strcat(path_name, f_name);
 	length = strlen(path_name);
-	path_name[length] = '\0';
-	printf("path_name[%d] = %c\n", length, path_name[length]);
 	stat_result = stat(path_name, &stat_buf);
-	printf("stat_result = %d\nerrno = %d\n", stat_result, errno);
+	printf("stat_result = %d\nerrno = %d, length = %d\n", stat_result, errno, length);
 	if (stat_result != 0)
 	{
 		free(path_name);

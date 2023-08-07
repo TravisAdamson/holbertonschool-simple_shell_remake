@@ -6,36 +6,38 @@
  * @argv: The arguments to the command.
  * Return: void
  */
-void turtle_cross_road_or_not(char **argv, char *dir_name)
+void turtle_cross_road_or_not(char **in_array, char *dir_name)
 {
 	pid_t launch = 0;
-	int status = 0;
+	int status = 0, length = 0;
 	char *full_path;
 	char **envp = NULL;
 	char *d_name = "\0";
 
 	if (dir_name != NULL)
 		d_name = dir_name;
-	full_path = malloc(strlen(d_name) + strlen(argv[1]) + 2);
+	full_path = malloc(strlen(d_name) + strlen(in_array[0]) + 2);
 	full_path[0] = '\0';
 	strcat(full_path, d_name);
 	strcat(full_path, "/");
-	strcat(full_path, argv[1]);
-	argv[1] = strdup(full_path);
+	strcat(full_path, in_array[0]);
+	length = strlen(full_path);
+	full_path[length] = '\0';
+	in_array[0] = strdup(full_path);
 	free(full_path);
 	launch = fork();
 	if (launch == -1)
 	{
-		perror(argv[1]), exit(EXIT_FAILURE);
+		perror(in_array[0]), exit(EXIT_FAILURE);
 	}
 	else if (launch == 0)
 	{
-		if (execve(argv[1], argv, envp) == -1)
+		if (execve(in_array[0], in_array, envp) == -1)
 		{
-			perror(argv[1]), exit(EXIT_FAILURE);
+			perror(in_array[0]), exit(EXIT_FAILURE);
 		}
 	}
 	else
 		wait(&status);
-	free(argv[1]);
+	free(in_array[0]);
 }
