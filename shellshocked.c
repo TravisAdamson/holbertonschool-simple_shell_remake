@@ -9,7 +9,7 @@
  */
 int main(void)
 {
-	int num_char;
+	int num_char = 0, num_char2 = 0;
 	size_t bsize;
 	char *user_input;
 	char *path;
@@ -31,20 +31,21 @@ int main(void)
 		if (user_input)
 			free(user_input);
 		user_input = malloc(bsize);
-		printf("%s", prompt);
-		num_char = getline(&user_input, &bsize, stdin);
-		if (num_char  == -1)
+		num_char = sleepy_turtle(user_input, bsize);
+		if (num_char == 0)
+		{
+			printf("%s", prompt);
+			num_char2 = getline(&user_input, &bsize, stdin);
+		}
+		if ((num_char  == -1) || (num_char2 == -1))
 		{
 			free(user_input);
-			if (dir_name)
-				free(dir_name);
 			exit(st);
 		}
 		in_array = malloc(sizeof(char *) * 10);
 		count = turtle_surgery(user_input, in_array);
 		if (count == 0)
 		{
-			printf("You didn't enter any commands");
 			continue;
 		}
 		dir_name = turtle_or_not(path, in_array[0]);
@@ -52,11 +53,15 @@ int main(void)
 			turtle_cross_road_or_not(in_array, dir_name);
 		st = 2;
 		free(in_array);
+		if (dir_name)
+			free(dir_name);
+		if (num_char == 0)
+			break;
+		num_char2 = 0;
+
 	}
 	if (user_input)
 		free(user_input);
 	free(path_name);
-	if (dir_name)
-		free(dir_name);
 	return (0);
 }

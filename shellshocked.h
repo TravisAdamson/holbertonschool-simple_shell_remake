@@ -31,5 +31,6 @@ char *turtle_bath(int length, char *path_name);
 int turtle_surgery(char *input, char **in_array);
 char *shell_cracked(char **input, char *delim);
 void set_turtle_free_or_not(char **cmdS);
+int sleepy_turtle(char *user_input, size_t bsize);
 
 #endif
