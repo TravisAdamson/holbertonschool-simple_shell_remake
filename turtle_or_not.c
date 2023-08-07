@@ -8,36 +8,36 @@
  */
 char *turtle_or_not(char *path, char *f_name)
 {
-	char *dir_name = NULL, *temp_path;
+	char *dir_name = NULL, *temp_path, *free_temp;
+	char *token;
 	char  buf[1024];
 	int turtle;
 	
 	turtle = check_turtle(f_name, dir_name);
-	printf("f_name = %s, dir_name = %s, turtle = %d\n", f_name, dir_name, turtle);
 	if (turtle == 1)
 	{
 		return (dir_name);
 	}
 	dir_name = getcwd(buf, sizeof(buf));
 	turtle = check_turtle(f_name, dir_name);
-	printf("f_name = %s, dir_name = %s, turtle = %d\n", f_name, dir_name, turtle);
 	if (turtle == 1)
 		return (dir_name);
 	temp_path = strdup(path);
-	dir_name = strsep(&temp_path, ":");
+	free_temp = temp_path;
+	token = strsep(&temp_path, ":");
 	while (dir_name != NULL)
 	{
 		turtle = check_turtle(f_name, dir_name);
-		printf("f_name = %s, dir_name = %s, turtle = %d\n", f_name, dir_name, turtle);
 		if (turtle == 1)
 		{
+			dir_name = strdup(token);
 			if (temp_path)
-				free(temp_path);
+				free(free_temp);
 			return (dir_name);
 		}
 		dir_name = strsep(&temp_path, ":");
 	}
 	if (temp_path)
-		free(temp_path);
+		free(free_temp);
 	return (NULL);
 }

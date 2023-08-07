@@ -35,8 +35,9 @@ int main(void)
 		num_char = getline(&user_input, &bsize, stdin);
 		if (num_char  == -1)
 		{
-			perror("\n\nYou have been shellshocked and your session has ended!\n");
 			free(user_input);
+			if (dir_name)
+				free(dir_name);
 			exit(st);
 		}
 		in_array = malloc(sizeof(char *) * 10);
@@ -47,7 +48,6 @@ int main(void)
 			continue;
 		}
 		dir_name = turtle_or_not(path, in_array[0]);
-		printf("dir_name = %s\n", dir_name);
 		if (dir_name != NULL)
 			turtle_cross_road_or_not(in_array, dir_name);
 		st = 2;
@@ -56,5 +56,7 @@ int main(void)
 	if (user_input)
 		free(user_input);
 	free(path_name);
+	if (dir_name)
+		free(dir_name);
 	return (0);
 }
